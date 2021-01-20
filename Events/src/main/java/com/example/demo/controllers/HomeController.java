@@ -78,7 +78,31 @@ public class HomeController {
 		model.addAttribute("newMessage", new Message());
 		return "show.jsp";
 	}
+	
+	@GetMapping("/events/{id}/edit")
+	public String eEvent(@PathVariable("id") Long id, Model model, HttpSession session) {
+		User loggedInUser = userServ.findOne( (Long) session.getAttribute("user_id") );
+		if(loggedInUser == null) {
+			return "redirect:/";
+		}
+		model.addAttribute("event", homeServ.findEvent(id));
+		return "edit.jsp";
+	}
 
+	@PostMapping("/events/{id}/edit")
+	public String editEvent(@Valid @ModelAttribute("event") Event event, BindingResult result, HttpSession session) {
+		User loggedInUser = userServ.findOne( (Long) session.getAttribute("user_id") );
+		if(loggedInUser == null) {
+			return "redirect:/";
+		}
+		System.out.println(result.getAllErrors());
+		if(result.hasErrors()) {
+			return "edit.jsp";
+			}
+		homeServ.updateEvent(event,result);
+		return "redirect:/events/"+event.getId();
+	}
+	
 	@GetMapping("/events/{id}/join")
 	public String joinEvent(@PathVariable("id") Long id, HttpSession session) {
 		User loggedInUser = userServ.findOne( (Long) session.getAttribute("user_id") );
@@ -98,6 +122,13 @@ public class HomeController {
 		homeServ.leaveTrip(id, loggedInUser.getId());
 		return "redirect:/home";
 	}
+	
+	@GetMapping("/events/{id}/delete")
+    public String delete(@PathVariable("id") Long id) {
+		
+		homeServ.remove(id);
+    	return "redirect:/home";
+    }
 	
 	@PostMapping("/register")
 	public String register(@Valid @ModelAttribute("newUser") User newUser, 

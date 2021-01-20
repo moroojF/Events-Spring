@@ -37,6 +37,17 @@ public class HomeService {
 		return eventRepo.save(newEvent);
 	}
 	
+	public Event updateEvent(Event newEvent, BindingResult result) {
+		if (result.hasErrors()) {
+			return null;
+		}
+		return eventRepo.save(newEvent);
+	}
+	
+	public void remove(Long id) {
+		eventRepo.deleteById(id);
+	}
+	
 	public Event findEvent(Long id) {
 		return eventRepo.findById(id).orElse(null);
 	}

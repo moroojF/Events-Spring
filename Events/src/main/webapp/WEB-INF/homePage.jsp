@@ -44,8 +44,8 @@
 			        <td>${e.planner.fName}</td>
 			        <td>
 			        	<c:if test="${user.id == e.planner.id}">
-							<a href="#" class="btn btn-sm btn-outline-dark">Edit</a>
-							<a href="#" class="btn btn-sm btn-outline-danger">Cancel</a>
+							<a href="/events/${e.id}/edit" class="btn btn-sm btn-outline-dark">Edit</a>
+							<a href="/events/${e.id}/delete" class="btn btn-sm btn-outline-danger">Cancel</a>
 						</c:if>
 						<c:if test="${user.id != e.planner.id}">
 							<c:if test="${e.isOnEvent(user.id)}">

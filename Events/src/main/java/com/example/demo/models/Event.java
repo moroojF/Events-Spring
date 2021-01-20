@@ -3,6 +3,7 @@ package com.example.demo.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,7 +53,7 @@ public class Event {
     @JoinColumn(name="user_id")
     private User planner;
 	
-    @OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="event", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages;
     
     @ManyToMany(fetch = FetchType.LAZY)
