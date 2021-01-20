@@ -42,7 +42,7 @@
 					<form:input path="location" class="form-control" />
 					<form:errors path="location" class="text-danger" />
 				</div>
-				<input type="submit" value="Plan Event" class="btn btn-primary" />
+				<input type="submit" value="Edit Event" class="btn btn-primary" />
 			</form:form>
 		</div>
 	</div>
